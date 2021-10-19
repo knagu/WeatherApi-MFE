@@ -1,0 +1,39 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title></title>  
+    <meta charset="utf-8" />  
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>  
+    <script type="text/javascript">  
+        $(document).ready(function () {  
+            var ulWeather = $('#ulWeather');             
+            $('#btnGetWeather').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: "http://8eb1241d-default-example-e4e7-158098729.us-west-2.elb.amazonaws.com/weatherforecast",                    
+                    dataType: 'json',
+                    success: function (data) {
+                        ulWeather.empty();
+                        $.each(data, function (index, val) {
+                            ulWeather.append('<li> Date - ' + val.date + " TemperatureC - " + val.temperatureC + " TemperatureF - " + val.temperatureF + 
+                                " Summary - " + val.summary + " DB_User - " + val.user + " DB_Password - " + val.password + " DB_URL - "+ val.dB_Url + '</li>');
+                        });
+                    }
+                });
+            });
+            $('#btnClear').click(function () {
+                ulWeather.empty();
+            }); 
+        });  
+    </script>  
+</head>  
+<body>     
+      
+    <div>
+        <input id="btnGetWeather" type="button" value="Get Weather forecast" />
+        <input id="btnClear" type="button" value="Clear" />
+        <ul id="ulWeather" />
+    </div>  
+  
+</body>  
+</html> 
