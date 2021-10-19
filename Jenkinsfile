@@ -9,8 +9,7 @@ node
 	}
 	               
     stage('Build'){        	   
-            sh label: '', script: '''                        
-            docker build -t 921881026300.dkr.ecr.us-west-2.amazonaws.com/dax-coreinfra-dev-ecr-uswest2-weatherapi-mfe:latest -f docker/Dockerfile .
+            sh label: '', script: '''                                    
             docker build -t 921881026300.dkr.ecr.us-west-2.amazonaws.com/dax-coreinfra-dev-ecr-uswest2-weatherapi-mfe:$BUILD_NUMBER -f docker/Dockerfile .           
             '''  
             echo "Build Succcessful"     	    
