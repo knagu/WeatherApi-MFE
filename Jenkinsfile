@@ -30,7 +30,10 @@ node
         echo "yes" | terraform plan 
         '''          
      }  
-     stage('Terraform Apply'){                              
+     stage('Terraform Apply'){  
+       timeout(time: 10, unit: 'MINUTES') {
+        input message: "Do you want to proceed for deployment?"
+       }    
         sh label: '', script: '''   
         cd terraform
         echo "yes" | terraform apply
