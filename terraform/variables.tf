@@ -6,9 +6,8 @@ variable "aws_region" {
 variable "registry_username" {
   default = "AWS"
 }
-variable "registry_password" {
-  
-}
+#variable "registry_password" {
+#}
 variable "docker_build_tag" {
   default = "btag"  
 }
