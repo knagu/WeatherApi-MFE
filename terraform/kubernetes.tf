@@ -64,5 +64,5 @@ provider "kubernetes" {
 
 locals {
   registry_server = "https://${data.terraform_remote_state.ecr.outputs.ecr_registry_id}.dkr.ecr.us-west-2.amazonaws.com"
-  image_name = "${data.terraform_remote_state.ecr.outputs.ecr_repository_url}:${var.docker_build_tag}"  
+  image_name = "${data.terraform_remote_state.ecr.outputs.weatherapi-mfe_ecr_repository_url}:${var.docker_build_tag}"  
 }
