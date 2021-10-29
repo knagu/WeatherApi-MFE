@@ -121,7 +121,11 @@ resource "kubernetes_service" "weatherapi-mfe" {
           backend {
             service_name = "dax-coreinfra-dev-service-weatherapi-mfe"
             service_port = 80
-          }          
+          }
+	  backend {
+	    service_name = "authenticate"
+            service_port = "use-annotation"
+	  }	
         }      
       }
     }
