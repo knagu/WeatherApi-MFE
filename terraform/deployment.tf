@@ -126,7 +126,7 @@ resource "kubernetes_service" "weatherapi-mfe" {
 	path {
           path = "/"		
 	  backend {
-	    service_name = "authenticate"
+	    service_name = "ssl-redirect"
             service_port = "use-annotation"
 	  }
 	}	              
