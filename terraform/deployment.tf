@@ -23,6 +23,18 @@ DOCKER
   type = "kubernetes.io/dockerconfigjson"
 }
 */
+resource "kubernetes_secret" "auth0" {
+  metadata {
+    name = "${var.prefix}-${var.project}-${var.namespace}-secret-auth0"
+    #namespace = "${var.namespace}"
+  }
+
+  data = {
+  clientID = "${base64encode("${var.auth0_client_id}")}"
+  clientSecret = "${base64encode("${var.auth0_client_secret}")}"
+}	
+	
+
 ###################################################################################################
 ################################### K8's DEPLOYMENTS ##############################################
 ###################################################################################################
@@ -97,6 +109,8 @@ resource "kubernetes_service" "weatherapi-mfe" {
       "alb.ingress.kubernetes.io/certificate-arn" = "arn:aws:acm:us-west-2:921881026300:certificate/8d45ef30-d7b0-4700-8a0a-fde57cdec670"
       "alb.ingress.kubernetes.io/listen-ports": "[{\"HTTP\": 80}, {\"HTTPS\":443}]"
       "alb.ingress.kubernetes.io/actions.ssl-redirect": "{\"Type\": \"redirect\", \"RedirectConfig\": { \"Protocol\": \"HTTPS\", \"Port\": \"443\", \"StatusCode\": \"HTTP_301\"}}"
+      "alb.ingress.kubernetes.io/auth-type" = "oidc"
+      "alb.ingress.kubernetes.io/auth-idp-oidc": "{\"issuer\":\"https://dev-je0wn-4u.us.auth0.com/\",\"authorizationEndpoint\":\"https://dev-je0wn-4u.us.auth0.com/authorize\",\"tokenEndpoint\":\"https://dev-je0wn-4u.us.auth0.com/oauth/token\",\"userInfoEndpoint\":\"https://dev-je0wn-4u.us.auth0.com/userinfo\",\"secretName\":\"dax-coreinfra-dev-secret-auth0\"}" 
     }
   }
   spec {
