@@ -85,6 +85,7 @@ resource "kubernetes_service" "weatherapi-mfe" {
 
     type = "ClusterIP"    
   }
+}	
   resource "kubernetes_ingress" "dev_api_ingress" {
   wait_for_load_balancer = true
   metadata {
@@ -112,4 +113,4 @@ resource "kubernetes_service" "weatherapi-mfe" {
     }
   }
 }
-}
+
