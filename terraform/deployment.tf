@@ -111,6 +111,7 @@ resource "kubernetes_service" "weatherapi-mfe" {
       "alb.ingress.kubernetes.io/actions.ssl-redirect": "{\"Type\": \"redirect\", \"RedirectConfig\": { \"Protocol\": \"HTTPS\", \"Port\": \"443\", \"StatusCode\": \"HTTP_301\"}}"
       "alb.ingress.kubernetes.io/auth-type" = "oidc"
       "alb.ingress.kubernetes.io/auth-idp-oidc": "{\"issuer\":\"https://dev-je0wn-4u.us.auth0.com/\",\"authorizationEndpoint\":\"https://dev-je0wn-4u.us.auth0.com/authorize\",\"tokenEndpoint\":\"https://dev-je0wn-4u.us.auth0.com/oauth/token\",\"userInfoEndpoint\":\"https://dev-je0wn-4u.us.auth0.com/userinfo\",\"secretName\":\"dax-coreinfra-dev-secret-auth0\"}" 
+      "alb.ingress.kubernetes.io/actions.forward-single-tg": "{\"type\":\"forward\",\"targetGroupARN\": \"arn:aws:elasticloadbalancing:us-west-2:921881026300:targetgroup/b5273caa-c67dfcbbefe791fd6b6/4e2a959fc1c5c6c0\"}"
     }
   }
   spec {
@@ -126,7 +127,7 @@ resource "kubernetes_service" "weatherapi-mfe" {
 	path {
           path = "/"		
 	  backend {
-	    service_name = "ssl-redirect"
+	    service_name = "forward-singel-tg"
             service_port = "use-annotation"
 	  }
 	}	              
