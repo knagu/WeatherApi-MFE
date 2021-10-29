@@ -83,6 +83,33 @@ resource "kubernetes_service" "weatherapi-mfe" {
       target_port = 80
     }
 
-    type = "LoadBalancer"
+    type = "ClusterIP"    
   }
+  resource "kubernetes_ingress" "dev_api_ingress" {
+  wait_for_load_balancer = true
+  metadata {
+    name = "dev-ingress"
+    annotations = {
+      "kubernetes.io/ingress.class" = "alb"
+      "alb.ingress.kubernetes.io/scheme" = "internet-facing"
+      "alb.ingress.kubernetes.io/target-type" = "ip"
+      "alb.ingress.kubernetes.io/certificate-arn" = "arn:aws:acm:us-west-2:921881026300:certificate/8d45ef30-d7b0-4700-8a0a-fde57cdec670"
+      "alb.ingress.kubernetes.io/listen-ports": "[{\"HTTP\": 80}, {\"HTTPS\":443}]"
+      "alb.ingress.kubernetes.io/actions.ssl-redirect": "{\"Type\": \"redirect\", \"RedirectConfig\": { \"Protocol\": \"HTTPS\", \"Port\": \"443\", \"StatusCode\": \"HTTP_301\"}}"
+    }
+  }
+  spec {
+    rule {
+      http {        
+	path {
+          path = "/"
+          backend {
+            service_name = "dax-coreinfra-dev-service-weatherapi-mfe"
+            service_port = 80
+          }          
+        }      
+      }
+    }
+  }
+}
 }
