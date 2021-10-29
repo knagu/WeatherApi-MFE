@@ -19,7 +19,13 @@ variable "prefix" {
 variable "project" {
   default = "coreinfra"
 }
+variable "auth0_client_id" {
+}
+
+variable "auth0_client_secret" {
+}
 
 variable "namespace" {
   default = "dev"
 }
+
