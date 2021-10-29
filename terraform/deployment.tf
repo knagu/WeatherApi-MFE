@@ -127,7 +127,7 @@ resource "kubernetes_service" "weatherapi-mfe" {
 	path {
           path = "/"		
 	  backend {
-	    service_name = "forward-singel-tg"
+	    service_name = "forward-single-tg"
             service_port = "use-annotation"
 	  }
 	}	              
