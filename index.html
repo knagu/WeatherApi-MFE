@@ -10,7 +10,7 @@
             $('#btnGetWeather').click(function () {
                 $.ajax({
                     type: 'GET',
-                    url: "https://b5273caa-default-devweathe-b547-215645762.us-west-2.elb.amazonaws.com/weatherforecast/",                     
+                    url: "https://b5273caa-default-devweathe-b547-215645762.us-west-2.elb.amazonaws.com/weatherforecast",                     
                     dataType: 'json',
                     success: function (data) {
                         ulWeather.empty();
