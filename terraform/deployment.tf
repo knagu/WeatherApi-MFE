@@ -33,7 +33,7 @@ resource "kubernetes_secret" "auth0" {
   clientID = "${base64encode("${var.auth0_client_id}")}"
   clientSecret = "${base64encode("${var.auth0_client_secret}")}"
 }	
-	
+}	
 
 ###################################################################################################
 ################################### K8's DEPLOYMENTS ##############################################
